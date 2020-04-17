@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.sap.devcamp.stepat.bookshop.model.ErrorResponse;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -56,10 +57,10 @@ public class GlobalExceptionController {
 	}
 	
 
-	private String generateErrorResponse(HttpStatus status, Exception exception, HttpServletRequest request) 
+	//private String generateErrorResponse(HttpStatus status, Exception exception, HttpServletRequest request) 
 
-			throws JsonProcessingException {
-		return new ErrorResponse
-//			return new ErrorResponse(new Date().toString, status.value(), status.getReasonPhrase(), exception.getClass().getName(), exception.getMessage(), request.getMethod(), request.getRequestURI());
-		}
+			//throws JsonProcessingException {
+		
+		//return new ErrorResponse(new Date().toString, status.value(), status.getReasonPhrase(), exception.getClass().getName());
+		//}
 }

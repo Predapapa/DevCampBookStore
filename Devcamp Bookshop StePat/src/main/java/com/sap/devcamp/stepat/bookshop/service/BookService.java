@@ -24,7 +24,7 @@ public class BookService {
 	}
 	
 	public void createBook(final Book book) {
-		if (bookRepository.existsBookByIsbn(book.getIsbn())) {
+		if (!bookRepository.existsBookByIsbn(book.getIsbn())) {
 			bookRepository.save(book);
 		} else {
 			throw new EntityExistsException("Could not save Book entity with ISBN " + book.getIsbn() + " . An entity with that ISBN already exists.")
@@ -45,10 +45,15 @@ public class BookService {
 	}
 	
 	public Book findBookByTitle(String title) {
+		if(bookRepository.existsBookByTitle(title)) {
 		return bookRepository.findBookByTitle(title);
+		}
+		
+		throw new EntityNotFoundException("Could not find Book entity with Title: " + title ); 
+		
 	}
 	
-	public void updateBook(final Book book) {
+	public Book updateBook(final Book book) {
 		if (bookRepository.existsBookByIsbn(book.getIsbn())) {
 			bookRepository.save(book);
 			return bookRepository.findBookByIsbn(book.getIsbn());
