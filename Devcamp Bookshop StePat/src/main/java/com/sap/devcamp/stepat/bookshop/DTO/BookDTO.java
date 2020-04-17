@@ -3,9 +3,6 @@ package com.sap.devcamp.stepat.bookshop.DTO;
 public class BookDTO {
 	
 	
-	
-	
-	
 	private int isbn;
 	private String title;
 	private String author;

@@ -3,6 +3,9 @@ package com.sap.devcamp.stepat.bookshop.service;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +23,13 @@ public class BookService {
 		this.bookRepository = bookRepository;
 	}
 	
-	public void saveBook(Book entity) {
-		bookRepository.save(entity);
+	public void createBook(final Book book) {
+		if (bookRepository.existsBookByIsbn(book.getIsbn())) {
+			bookRepository.save(book);
+		} else {
+			throw new EntityExistsException("Could not save Book entity with ISBN " + book.getIsbn() + " . An entity with that ISBN already exists.")
+;		}
+		
 	}
 	
 	public List<Book> getAll() {
@@ -40,6 +48,13 @@ public class BookService {
 		return bookRepository.findBookByTitle(title);
 	}
 	
+	public void updateBook(final Book book) {
+		if (bookRepository.existsBookByIsbn(book.getIsbn())) {
+			bookRepository.save(book);
+			return bookRepository.findBookByIsbn(book.getIsbn());
+	}
+		throw new EntityNotFoundException("Could not update Book entity because it does not exist. " + book.getIsbn());
+		}
 	
 	
 	

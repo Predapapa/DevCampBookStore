@@ -24,6 +24,10 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 	
 	@Query ("SELECT b FROM BOOK b WHERE b.author LIKE:AUTHOR")
 	List<Book> getAllBooksFromAuthor(@Param("AUTHOR")String author);
+
+	public boolean existsBookByIsbn(int isbn);
+
+	public Book findBookByIsbn(int isbn);
 	
 	
 	
