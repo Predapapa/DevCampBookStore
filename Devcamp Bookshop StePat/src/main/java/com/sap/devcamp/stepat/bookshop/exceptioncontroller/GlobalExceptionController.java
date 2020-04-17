@@ -53,14 +53,10 @@ public class GlobalExceptionController {
 	private ResponseEntity getEntity(HttpStatus status, Exception exception, HttpServletRequest request) 
 
 		throws JsonProcessingException {
-		return new ResponseEntity<>(generateErrorResponse(status, exception, request), status);
+		return new ResponseEntity("Exception: "+exception.getMessage().toString()+"At Request "+request.getMethod()+" .",status);
 	}
 	
-
-	//private String generateErrorResponse(HttpStatus status, Exception exception, HttpServletRequest request) 
-
-			//throws JsonProcessingException {
-		
-		//return new ErrorResponse(new Date().toString, status.value(), status.getReasonPhrase(), exception.getClass().getName());
-		//}
 }
+	
+
+	

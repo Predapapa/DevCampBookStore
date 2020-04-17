@@ -35,12 +35,12 @@ public class BookController {
 	
 	public BookController(BookService bookService) {
 		this.bookService = bookService;
-		bookService.saveBook(new Book(1234567891, "Der Hobbit", "J.R.R. Tolkien", "1937", "George Allen & Unwin", 100, 22.54));
-		bookService.saveBook(new Book(1234567892, "Der Herr der Ringe", "J.R.R. Tolkien", "1954", "George Allen & Unwin", 50, 88));
-		bookService.saveBook(new Book(1234567893, "GW100 SAP Gateway", "Studio SAP", "2018", "Studio Sap", 200, 50.50));
-		bookService.saveBook(new Book(1234567894, "S4D400", "Andreas Nicola", "2018", "Studio Sap", 150, 50.99));
-		bookService.saveBook(new Book(1234567895, "Harry Potter und der Stein der Weisen", "J. K. Rowling", "1997", "Carlsen", 100, 8.99));
-		bookService.saveBook(new Book(1234567896, "Der Hundertjährige, der aus dem Fenster stieg und verschwand", "Jonas Jonasson", "2009", "Piratförlaget", 10, 7.99));
+		bookService.createBook(new Book(1234567891, "Der Hobbit", "J.R.R. Tolkien", "1937", "George Allen & Unwin", 100, 22.54));
+		bookService.createBook(new Book(1234567892, "Der Herr der Ringe", "J.R.R. Tolkien", "1954", "George Allen & Unwin", 50, 88));
+		bookService.createBook(new Book(1234567893, "GW100 SAP Gateway", "Studio SAP", "2018", "Studio Sap", 200, 50.50));
+		bookService.createBook(new Book(1234567894, "S4D400", "Andreas Nicola", "2018", "Studio Sap", 150, 50.99));
+		bookService.createBook(new Book(1234567895, "Harry Potter und der Stein der Weisen", "J. K. Rowling", "1997", "Carlsen", 100, 8.99));
+		bookService.createBook(new Book(1234567896, "Der Hundertjährige, der aus dem Fenster stieg und verschwand", "Jonas Jonasson", "2009", "Piratförlaget", 10, 7.99));
 	}
 	
 	@GetMapping(path = "/book/customer", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -75,7 +75,7 @@ public class BookController {
 	
 	@PutMapping(path = "/saveBook", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity saveBook(@RequestBody Book book) {
-		bookService.saveBook(book);
+		bookService.createBook(book);
 		return new ResponseEntity<>(null, HttpStatus.CREATED);
 	}
 	
