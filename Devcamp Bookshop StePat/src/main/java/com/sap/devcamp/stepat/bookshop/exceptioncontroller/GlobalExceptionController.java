@@ -2,6 +2,7 @@ package com.sap.devcamp.stepat.bookshop.exceptioncontroller;
 
 import java.util.Date;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,44 +16,31 @@ import com.sap.devcamp.stepat.bookshop.model.ErrorResponse;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+
 @ControllerAdvice
 public class GlobalExceptionController {
 
 	@ExceptionHandler ( value = { EntityNotFoundException.class, NullPointerException.class} )
-	public ResponseEntity handleNotFoundException(final HttpServletRequest request, final Exception exception)
-	throws JsonProcessingException {
+	public ResponseEntity handleNotFoundException(final HttpServletRequest request, final Exception exception) {
 		HttpStatus status = HttpStatus.NOT_FOUND;
-		logExceptionErrorLevel(status, exception, request);
 		return getEntity(status, exception, request);
 	}
 	
-	@ExceptionHandler ( value = { EntityNotFoundException.class } )
-	public ResponseEntity handleBadRequesException(final HttpServletRequest request, final Exception exception)
-	throws JsonProcessingException {
+	@ExceptionHandler ( value = EntityExistsException.class )
+	public ResponseEntity handleBadRequesException(final HttpServletRequest request, final Exception exception) {
 		HttpStatus status = HttpStatus.BAD_REQUEST;
-		logExceptionErrorLevel(status, exception, request);
 		return getEntity(status, exception, request);
 	}
 	
 	@ExceptionHandler ( value = { Exception.class } )
-	public ResponseEntity handleInternalServerErrorException(final HttpServletRequest request, final Exception exception)
-	throws JsonProcessingException {
+	public ResponseEntity handleInternalServerErrorException(final HttpServletRequest request, final Exception exception) {
 		HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-		logExceptionErrorLevel(status, exception, request);
 		return getEntity(status, exception, request);
 	}
 
-	private void logExceptionErrorLevel(HttpStatus status, Exception exception, HttpServletRequest request) {
+	private ResponseEntity getEntity(HttpStatus status, Exception exception, HttpServletRequest request) {
 
-		log.error("{}: '{}' \t Method: {} \t Path: {}", status.toString(), exception.getMessage(), request.getMethod(), request.getRequestURI());
-
-		
-	}
-
-	private ResponseEntity getEntity(HttpStatus status, Exception exception, HttpServletRequest request) 
-
-		throws JsonProcessingException {
+	
 		return new ResponseEntity("Exception: "+exception.getMessage().toString()+"At Request "+request.getMethod()+" .",status);
 	}
 	

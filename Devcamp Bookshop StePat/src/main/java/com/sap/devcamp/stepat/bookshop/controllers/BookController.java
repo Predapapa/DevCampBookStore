@@ -43,7 +43,7 @@ public class BookController {
 		bookService.createBook(new Book(1234567896, "Der Hundertjährige, der aus dem Fenster stieg und verschwand", "Jonas Jonasson", "2009", "Piratförlaget", 10, 7.99));
 	}
 	
-	@GetMapping(path = "/book/customer", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/getBooks/customer", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity <List<BookDTO>> bookForCustomers() {
 		return new ResponseEntity<List<BookDTO>>(bookService.getAll().stream()
 				.map(this::convertToDto)
@@ -51,12 +51,12 @@ public class BookController {
 				, HttpStatus.OK);
 	}
 	
-	@GetMapping(path = "/book/manager", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/getBooks/manager", produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<List<Book>> book(){
 			return new ResponseEntity<List<Book>>(bookService.getAll(), HttpStatus.OK);
 		}
 	
-	@GetMapping(path = "/author/{author}", produces = MediaType.APPLICATION_JSON_VALUE) 
+	@GetMapping(path = "/getBooks/author/{author}", produces = MediaType.APPLICATION_JSON_VALUE) 
 		public ResponseEntity <List<Book>> author(@PathVariable(name = "author") String author) {
 			return new ResponseEntity<List<Book>>
 			(bookService.getAllBooksFromAuthor(author),HttpStatus.OK);
@@ -77,6 +77,12 @@ public class BookController {
 	public ResponseEntity saveBook(@RequestBody Book book) {
 		bookService.createBook(book);
 		return new ResponseEntity<>(null, HttpStatus.CREATED);
+	}
+	
+	@PutMapping(path = "/updateBook", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity updateBook(@RequestBody Book book) {
+		bookService.updateBook(book);
+		return new ResponseEntity<>(null,HttpStatus.OK);
 	}
 	
 	private BookDTO convertToDto(Book book) {

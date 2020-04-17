@@ -41,25 +41,31 @@ public class BookService {
 	}
 	
 	public void deleteBook(UUID uuid) {
+		if(bookRepository.existsBookByUuid(uuid)) {
 		bookRepository.deleteBookByUuid(uuid);
+		} else {
+		throw new EntityNotFoundException("Could not delete Book entity with uuid: "+ uuid + " because the Book entity does not exist. ");
+		}
+				
 	}
 	
 	public Book findBookByTitle(String title) {
 		if(bookRepository.existsBookByTitle(title)) {
 		return bookRepository.findBookByTitle(title);
-		}
+		} else {
 		
 		throw new EntityNotFoundException("Could not find Book entity with Title: " + title ); 
+		}
 		
 	}
 	
 	public Book updateBook(final Book book) {
-		if (bookRepository.existsBookByIsbn(book.getIsbn())) {
+		if (bookRepository.existsBookByIsbn(book.getIsbn()) && bookRepository.existsBookByUuid(book.getUuid()))  {
 			bookRepository.save(book);
 			return bookRepository.findBookByIsbn(book.getIsbn());
-	}
-		throw new EntityNotFoundException("Could not update Book entity because it does not exist. " + book.getIsbn());
-		}
+	}else {
+		throw new EntityNotFoundException("Could not update Book entity because it does not exist. " + book.getIsbn() + ", " + book.getUuid());
+	}}
 	
 	
 	

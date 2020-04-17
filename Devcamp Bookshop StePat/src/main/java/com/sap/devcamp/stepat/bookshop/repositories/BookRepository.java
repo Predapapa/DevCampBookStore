@@ -30,6 +30,8 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 	public Book findBookByIsbn(int isbn);
 
 	public boolean existsBookByTitle(String title);
+
+	public boolean existsBookByUuid(UUID uuid);
 	
 	
 	
