@@ -43,7 +43,7 @@ public class BookController {
 		bookService.createBook(new Book(1234567896, "Der Hundertjährige, der aus dem Fenster stieg und verschwand", "Jonas Jonasson", "2009", "Piratförlaget", 10, 7.99));
 	}
 	
-	@GetMapping(path = "/getBooks/customer", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/customer/getBooks", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity <List<BookDTO>> bookForCustomers() {
 		return new ResponseEntity<List<BookDTO>>(bookService.getAll().stream()
 				.map(this::convertToDto)
@@ -51,25 +51,33 @@ public class BookController {
 				, HttpStatus.OK);
 	}
 	
-	@GetMapping(path = "/getBooks/manager", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/manager/getBooks", produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<List<Book>> book(){
 			return new ResponseEntity<List<Book>>(bookService.getAll(), HttpStatus.OK);
 		}
 	
-	@GetMapping(path = "/getBooks/author/{author}", produces = MediaType.APPLICATION_JSON_VALUE) 
+	@GetMapping(path = "/manager/getBooks/author/{author}", produces = MediaType.APPLICATION_JSON_VALUE) 
 		public ResponseEntity <List<Book>> author(@PathVariable(name = "author") String author) {
 			return new ResponseEntity<List<Book>>
 			(bookService.getAllBooksFromAuthor(author),HttpStatus.OK);
 		}
 	
+	@GetMapping(path = "/customer/getBooks/author/{author}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity <List<BookDTO>> bookForCustomersByAuthor(@PathVariable(name = "author") String author) {
+		return new ResponseEntity<List<BookDTO>>(bookService.getAllBooksFromAuthor(author).stream()
+				.map(this::convertToDto)
+				.collect(Collectors.toList())
+				, HttpStatus.OK);
+	}
+	
 	@DeleteMapping(path = "/deleteBook/{uuid}")
-	public ResponseEntity <List<Book>> delete(@PathVariable(name = "uuid") UUID uuid) {
+	public ResponseEntity <List<Book>> deleteBook(@PathVariable(name = "uuid") UUID uuid) {
 		bookService.deleteBook(uuid);
 		return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 	}
 	
 	@GetMapping(path = "/findBook/{title}", produces = MediaType.APPLICATION_JSON_VALUE) 
-	public ResponseEntity <Book> title(@PathVariable(name = "title") String title) {
+	public ResponseEntity <Book> findBookByTitleManager(@PathVariable(name = "title") String title) {
 		return new ResponseEntity<>(bookService.findBookByTitle(title),HttpStatus.OK);
 	}
 	
