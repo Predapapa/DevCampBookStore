@@ -77,7 +77,7 @@ public class BookController {
 	}
 	
 	@GetMapping(path = "/findBook/{title}", produces = MediaType.APPLICATION_JSON_VALUE) 
-	public ResponseEntity <Book> findBookByTitleManager(@PathVariable(name = "title") String title) {
+	public ResponseEntity <Book> findBookByTitle(@PathVariable(name = "title") String title) {
 		return new ResponseEntity<>(bookService.findBookByTitle(title),HttpStatus.OK);
 	}
 	
