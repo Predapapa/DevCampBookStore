@@ -8,11 +8,8 @@ sap.ui.define([
 	return Controller.extend("BWATC.BookstoreWebAppTC.controller.MainView", {
 		onInit: function () {
 			
-		},
+		}
 
-		onListItemPress: function (oEvent) {
-			var listItem = oEvent.getParameter("listItem");
-			  var getTitle = listItem.getTitle();
-			  
-		}	});
+		
+
 });

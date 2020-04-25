@@ -9,8 +9,9 @@
 		headerText="Books">
 		<ObjectListItem
 			title="{title}"
+			type="Active"
 			icon="sap-icon://course-book"
-			press="onListItemPress"
+			press="onPress"
 			>
 			<firstStatus>
 				<ObjectStatus
