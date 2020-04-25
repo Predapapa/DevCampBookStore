@@ -11,7 +11,7 @@
 			title="{title}"
 			type="Active"
 			icon="sap-icon://course-book"
-			press="onPress"
+			press=".onPress"
 			>
 			<firstStatus>
 				<ObjectStatus

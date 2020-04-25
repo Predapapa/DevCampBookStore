@@ -7,7 +7,12 @@ sap.ui.define([
 
 	return Controller.extend("BWATC.BookstoreWebAppTC.controller.MainView", {
 		onInit: function () {
-			
+			var oViewModel = new JSONModel();
+			this.getView().setModel(oViewModel, "view");
+		},
+		
+		onPress: function(oEvent){
+			console.log("onPress working :)");
 		}
 	
 
