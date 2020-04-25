@@ -14,12 +14,13 @@
 			"version": "1.40.12"
 		},
 		"dataSources": {
-   			"bookDataSource": {
+   			"bookDataSourceCustomer": {
       			"uri": "api/v1/customer/getBooks",
       			"type": "JSON",
       			"settings": {
       }
-	}}
+	  }		
+	}
 		
 	},
 
@@ -68,7 +69,7 @@
 				}
 			},
 				"": {
-				"dataSource" : "bookDataSource",
+				"dataSource" : "bookDataSourceCustomer",
 				"settings": {
 					"defaultBindingMode" : "OneWay"
 				}

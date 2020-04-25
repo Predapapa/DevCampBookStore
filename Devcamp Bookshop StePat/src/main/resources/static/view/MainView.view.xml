@@ -4,6 +4,27 @@
 			<pages>
 				<Page id="page" title="{i18n>title}">
 					<content>
+						<List
+		items="{/}"
+		headerText="Books">
+		<ObjectListItem
+			title="{title}"
+			icon="sap-icon://course-book"
+			press="onListItemPress"
+			>
+			<firstStatus>
+				<ObjectStatus
+					text="Available"
+					 />
+			</firstStatus>
+			<secondStatus>
+				<ObjectStatus
+					text="{price} EUR"
+					/>
+			</secondStatus>
+			<ObjectAttribute text="from {author}"/>
+		</ObjectListItem>
+	</List>
 					</content>
 				</Page>
 			</pages>
